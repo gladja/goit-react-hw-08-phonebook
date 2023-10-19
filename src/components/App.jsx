@@ -1,4 +1,7 @@
 import { NavLink, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Home } from '../pages/Home';
 import { Register } from '../pages/Register';
 import { Login } from '../pages/Login';
@@ -27,6 +30,8 @@ export const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/contacts' element={'Contacts'} />
       </Routes>
+
+      <ToastContainer autoClose={3000} theme='colored' position='top-center' />
     </>
   );
 };
