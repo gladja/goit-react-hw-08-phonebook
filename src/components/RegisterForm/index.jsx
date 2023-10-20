@@ -1,9 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
-import { toast } from 'react-toastify';
-import { logDOM } from '@testing-library/react';
+// import { toast } from 'react-toastify';
 
-export const RegisterForm = () => {
+export const RegisterForm = ({registerUser}) => {
   const initialValues = {
     name: '',
     email: '',
@@ -13,15 +12,16 @@ export const RegisterForm = () => {
   const schema = object({
     name: string().required(),
     email: string().nullable().email().required(),
-    password: string().min(6).max(16).required(),
+    password: string().min(8).max(16).required(),
   });
 
   const handleSubmit = (v, a) => {
-    const value = {
+    const dataUser = {
       name: v.name,
       email: v.email,
       password: v.password,
     };
+    registerUser(dataUser);
     a.resetForm();
   };
 
@@ -39,7 +39,7 @@ export const RegisterForm = () => {
         <Form>
           <label>
             Name:
-            <Field type={'text'} name={'name'} placeholder={'name'} />
+            <Field type={'text'} name={'name'} placeholder={'Name'} />
             <ErrorMessage
               name='name'
               // render={msg => notify(msg)}
