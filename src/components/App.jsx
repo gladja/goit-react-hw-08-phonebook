@@ -5,8 +5,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Home } from '../pages/Home';
 import { Register } from '../pages/Register';
 import { Login } from '../pages/Login';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { logoutUser, refresh } from '../redux/operations';
 
 export const App = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(refresh());
+  }, [dispatch]);
+
   return (
     <>
       <ul>
@@ -18,6 +27,7 @@ export const App = () => {
         </li>
         <li>
           <NavLink to={'/login'}>Login</NavLink>
+          <button type='submit' onClick={()=>{dispatch(logoutUser())}}>Logout</button>
         </li>
         <li>
           <NavLink to={'/contacts'}>Contacts</NavLink>

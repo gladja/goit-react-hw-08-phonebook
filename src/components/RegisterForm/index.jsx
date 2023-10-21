@@ -1,19 +1,31 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
-// import { toast } from 'react-toastify';
+import { registerUser } from '../../redux/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-export const RegisterForm = ({registerUser}) => {
+//formik initialValues
   const initialValues = {
     name: '',
     email: '',
     password: '',
   };
-
+//formik schema
   const schema = object({
     name: string().required(),
     email: string().nullable().email().required(),
     password: string().min(8).max(16).required(),
   });
+
+export const RegisterForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(state => state.register.isLoggedIn)
+
+  useEffect(() => {
+    // isLoggedIn && navigate('/')
+  }, [ navigate])
 
   const handleSubmit = (v, a) => {
     const dataUser = {
@@ -21,11 +33,9 @@ export const RegisterForm = ({registerUser}) => {
       email: v.email,
       password: v.password,
     };
-    registerUser(dataUser);
+    dispatch(registerUser(dataUser));
     a.resetForm();
   };
-
-  // const notify = (msg) => toast.error(`Wow so easy! ${msg}`);
 
   return (
     <>
@@ -42,7 +52,6 @@ export const RegisterForm = ({registerUser}) => {
             <Field type={'text'} name={'name'} placeholder={'Name'} />
             <ErrorMessage
               name='name'
-              // render={msg => notify(msg)}
               component={'div'}
             />
           </label>

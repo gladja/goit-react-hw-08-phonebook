@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { registerReducer } from './registerSlice';
+import { registerReducer } from './authSlice';
 import storage from 'redux-persist/lib/storage';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 
-
 const persistConfig = {
-  key: 'token',
+  key: 'auth',
   storage,
   whitelist: ['token'],
 };
@@ -13,7 +12,7 @@ const persistedReducer = persistReducer(persistConfig, registerReducer);
 
 const reducer = {
   register: registerReducer,
-  token: persistedReducer,
+  auth: persistedReducer,
 }
 
 export const store = configureStore({
