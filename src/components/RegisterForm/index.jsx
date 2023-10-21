@@ -21,7 +21,7 @@ import { useEffect } from 'react';
 export const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(state => state.register.isLoggedIn)
+  // const isLoggedIn = useSelector(state => state.register.isLoggedIn)
 
   useEffect(() => {
     // isLoggedIn && navigate('/')
