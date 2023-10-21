@@ -9,7 +9,9 @@ const registerSlice = createSlice({
   name: 'register',
   initialState,
   extraReducers: (builder) => {
-
+    // builder.addCase()
   },
 
 })
+
+export const registerReducer = registerSlice.reducer;
