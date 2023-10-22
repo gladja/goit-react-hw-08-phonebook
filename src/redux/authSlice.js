@@ -1,11 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, registerUser, refresh, logoutUser } from './operations';
+// import { addMethod } from 'yup';
 
 const initialState = {
   token: '',
   profile: null,
   isLoggedIn: false,
+  isLoading: false,
 };
+
+const handlePending = (state) => {
+  state.isLoading = true;
+};
+
+const handleFulfilled = (state) => {
+  state.isLoading = false
+}
+
+const handleRejected = (state, { error }) => {
+  state.isLoading = false;
+};
+
 
 const authSlice = createSlice({
   name: 'register',
@@ -28,10 +43,13 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(refresh.fulfilled, (state, { payload }) => {
-        console.log(payload);
+        // console.log(payload);
         state.profile = payload;
         state.isLoggedIn = true;
-      });
+      })
+      .addMatcher((action) => action.type.endsWith('/pending'), handlePending)
+      .addMatcher((action) => action.type.endsWith('/rejected'), handleRejected)
+      .addMatcher((action) => action.type.endsWith('/fulfilled'), handleFulfilled);
   },
 
 });

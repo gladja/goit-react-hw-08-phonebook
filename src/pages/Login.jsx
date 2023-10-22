@@ -1,9 +1,16 @@
-import { LoginForm } from '../components/LoginForm';
+import { LoginForm } from '../components/LoginForm/LoginForm';
+import { Loader } from '../components/Loader/Loader';
+import { useSelector } from 'react-redux';
+import { selectIsLoading } from '../redux/selectors';
 
-export const Login = () => {
+const Login = () => {
+  const isLoading = useSelector(selectIsLoading);
+
   return (
     <>
-      <LoginForm />
+      { isLoading ? <Loader/> :  <LoginForm />}
     </>
   );
 };
+
+export default Login

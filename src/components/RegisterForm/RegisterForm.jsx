@@ -1,39 +1,48 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
 import { registerUser } from '../../redux/operations';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { selectLogIn } from '../../redux/selectors';
+import { toast } from 'react-toastify';
 
 //formik initialValues
-  const initialValues = {
-    name: '',
-    email: '',
-    password: '',
-  };
+const initialValues = {
+  name: '',
+  email: '',
+  password: '',
+};
 //formik schema
-  const schema = object({
-    name: string().required(),
-    email: string().nullable().email().required(),
-    password: string().min(8).max(16).required(),
-  });
+const schema = object({
+  name: string().required(),
+  email: string().nullable().email().required(),
+  password: string().min(8).max(16).required(),
+});
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const isLoggedIn = useSelector(state => state.register.isLoggedIn)
+  const isLoggedIn = useSelector(selectLogIn);
 
   useEffect(() => {
-    // isLoggedIn && navigate('/')
-  }, [ navigate])
+    isLoggedIn && navigate('/contacts');
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = (v, a) => {
+    console.log(a);
     const dataUser = {
       name: v.name,
       email: v.email,
       password: v.password,
     };
-    dispatch(registerUser(dataUser));
+    dispatch(registerUser(dataUser)).unwrap()
+      .then(() => {
+        toast.success('Register success!');
+      }).catch((e) => {
+      console.log(e);
+      toast.error('Duplicate, Email');
+    });
     a.resetForm();
   };
 
@@ -58,14 +67,14 @@ export const RegisterForm = () => {
           <br />
           <label>
             Email:
-            <Field type={'text'} name={'email'} placeholder={'email'}/>
-            <ErrorMessage name='email' component={'div'}/>
+            <Field type={'text'} name={'email'} placeholder={'email'} />
+            <ErrorMessage name='email' component={'div'} />
           </label>
           <br />
 
           <label>
             Password:
-            <Field type={'password'} name={'password'} placeholder={'******'}/>
+            <Field type={'password'} name={'password'} placeholder={'******'} />
             <ErrorMessage name='password' />
           </label>
           <br />

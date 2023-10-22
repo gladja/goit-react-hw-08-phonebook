@@ -1,11 +1,16 @@
-import { RegisterForm } from '../components/RegisterForm';
+import { RegisterForm } from '../components/RegisterForm/RegisterForm';
+import { Loader } from '../components/Loader/Loader';
+import { useSelector } from 'react-redux';
+import { selectIsLoading } from '../redux/selectors';
 
-export const Register = () => {
+const Register = () => {
+  const isLoading = useSelector(selectIsLoading);
 
   return (
     <>
-      <RegisterForm />
+      { isLoading ? <Loader/> : <RegisterForm /> }
     </>
   );
-
 };
+
+export default Register

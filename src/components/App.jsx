@@ -1,16 +1,27 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { Home } from '../pages/Home';
-import { Register } from '../pages/Register';
-import { Login } from '../pages/Login';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { logoutUser, refresh } from '../redux/operations';
+import { lazy } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { refresh } from '../redux/operations';
+import { SharedLayout } from './SharedLayout/SharedLayout';
+
+// import { Home } from '../pages/Home';
+// import { Contacts } from '../pages/Contacts';
+// import { Register } from '../pages/Register';
+// import { Login } from '../pages/Login';
+
+
+//* lazy
+const Home = lazy(() => import('../pages/Home'));
+const Contacts = lazy(() => import('../pages/Contacts'));
+const Register = lazy(() => import('../pages/Register'));
+const Login = lazy(() => import('../pages/Login'));
+// const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
 export const App = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(refresh());
@@ -18,30 +29,17 @@ export const App = () => {
 
   return (
     <>
-      <ul>
-        <li>
-          <NavLink to={'/'}>Home</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/register'}>Register</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/login'}>Login</NavLink>
-          <button type='submit' onClick={()=>{dispatch(logoutUser())}}>Logout</button>
-        </li>
-        <li>
-          <NavLink to={'/contacts'}>Contacts</NavLink>
-        </li>
-      </ul>
-
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/contacts' element={'Contacts'} />
+        <Route path='/' element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path='/contacts' element={<Contacts />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='*' element={<Navigate to="/" />} />
+        </Route>
       </Routes>
 
-      <ToastContainer autoClose={3000} theme='colored' position='top-center' />
+      <ToastContainer autoClose={3000} theme='colored' position='top-right' />
     </>
   );
 };
