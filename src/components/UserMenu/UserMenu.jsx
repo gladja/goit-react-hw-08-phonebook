@@ -3,6 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../redux/operations';
 import { selectUserMail, selectUserName } from '../../redux/selectors';
 import { toast } from 'react-toastify';
+import { Box, Button, Typography } from '@mui/material';
+
+const userInfoStyle = {
+  px: 2,
+  // py: 0.5,
+  // border: '1px solid white',
+  // background: '#4074dc',
+  borderRadius: 2,
+  display: 'inline',
+}
+
+const box = {
+  display: 'flex',
+  alignItems: 'center',
+  // justifyContent: 'space-beatween',
+  // gap: 1,
+  // textDecoration: 'none',
+  // '& a': { textDecoration: 'none' },
+}
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -18,15 +37,20 @@ export const UserMenu = () => {
 
   return (
     <>
-      <li><p>Welcome, {userName} {userMail}</p></li>
-      <li>
-        <button
+      <Box sx={box} >
+      <Typography component='p' sx={userInfoStyle}>
+        {userMail}</Typography>
+
+        <Button
           type='submit'
           onClick={handleLogOut}
+          variant={'contained'}
+          color="secondary"
+          size="small"
         >
           Log out
-        </button>
-      </li>
+        </Button>
+      </Box>
     </>
   );
 };

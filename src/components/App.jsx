@@ -18,7 +18,6 @@ const Home = lazy(() => import('../pages/Home'));
 const Contacts = lazy(() => import('../pages/Contacts'));
 const Register = lazy(() => import('../pages/Register'));
 const Login = lazy(() => import('../pages/Login'));
-// const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
 export const App = () => {
   const dispatch = useDispatch();
