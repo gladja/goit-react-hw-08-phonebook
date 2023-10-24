@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import {  NavLink, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectLogIn } from '../../redux/selectors';
 import { UserMenu } from '../UserMenu/UserMenu';
@@ -8,15 +8,9 @@ import { Suspense } from 'react';
 import {
   AppBar,
   Box,
-  Button,
-  IconButton,
-  List,
-  ListItem,
   Toolbar,
   Typography,
   Container,
-  Stack,
-  createTheme, gridClasses,
 } from '@mui/material';
 
 const boxWrap = {
@@ -55,14 +49,6 @@ export const SharedLayout = () => {
 
   return (
     <>
-      {/*<nav>*/}
-      {/*  <ul>*/}
-      {/*    <li><NavLink to={'/'}>Home</NavLink></li>*/}
-      {/*    {isLoggedIn && <li><NavLink to={'/contacts'}>Contacts</NavLink></li>}*/}
-      {/*    {isLoggedIn ? <UserMenu /> : <UserAuth />}*/}
-      {/*  </ul>*/}
-      {/*</nav>*/}
-
       <AppBar position='static'>
         <Container maxWidth="lg">
         <Toolbar component='nav'>

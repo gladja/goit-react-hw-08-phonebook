@@ -6,6 +6,7 @@ import { loginUser } from '../../redux/operations';
 import { useNavigate } from 'react-router-dom';
 import { selectLogIn } from '../../redux/selectors';
 import { toast } from 'react-toastify';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 //* formik initialValues
 const initialValues = {
@@ -14,8 +15,8 @@ const initialValues = {
 };
 //* formik schema
 const schema = object({
-  email: string().nullable().email().required(),
-  password: string().min(8).max(16).required(),
+  email: string().nullable().email('Invalid email').required('Required'),
+  password: string().min(8, 'min 8').max(16).required('Required'),
 });
 
 
@@ -33,7 +34,6 @@ export const LoginForm = () => {
       email: v.email,
       password: v.password,
     };
-    // console.log(dataUser);
     dispatch(loginUser(dataUser)).unwrap()
       .then(() => {
         toast.success('Login success!');
@@ -43,32 +43,71 @@ export const LoginForm = () => {
     a.resetForm();
   };
 
+
   return (
     <>
-      <h2>Login</h2>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <Box sx={{ width: 350, p: 4,  borderRadius: 4, boxShadow: '0px 10px 20px 2px rgba(0, 0, 0, 0.2)' }}>
 
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleLogin}
-        validationSchema={schema}
-      >
-        <Form>
-          <label>
-            Email:
-            <Field type={'text'} name={'email'} placeholder={'email'} />
-            <ErrorMessage name='email' component={'div'} />
-          </label>
-          <br />
+          <Typography variant="h5" sx={{fontWeight: 'bolder', mb: 1}}>Login</Typography>
 
-          <label>
-            Password:
-            <Field type={'password'} name={'password'} placeholder={'******'} />
-            <ErrorMessage name='password' />
-          </label>
-          <br />
-          <button type={'submit'}>Login</button>
-        </Form>
-      </Formik>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleLogin}
+            validationSchema={schema}
+          >
+            {({ isValid, dirty }) => (
+              <Form>
+                <Field
+                  type={'text'}
+                  name={'email'}
+                  as={TextField}
+                  variant='outlined'
+                  label='Email:'
+                  fullWidth
+                  size='small'
+                />
+                <ErrorMessage
+                  name='email'
+                  render={msg => (
+                    <Typography
+                      variant='caption' color={'red'}
+                      sx={{ ml: 1 }}>{msg}</Typography>
+                  )}
+                />
+                <Box sx={{ mb: 2 }} />
+                <Field
+                  type={'password'}
+                  name={'password'}
+                  as={TextField}
+                  variant='outlined'
+                  label='Password:'
+                  fullWidth
+                  size='small'
+                />
+                <ErrorMessage
+                  name='password'
+                  render={msg => (
+                    <Typography
+                      variant='caption' color={'red'}
+                      sx={{ ml: 1 }}>{msg}</Typography>
+                  )}
+                />
+                <Box sx={{ mb: 2 }} />
+                <Button
+                  fullWidth
+                  type={'submit'}
+                  variant='contained'
+                  size='large'
+                  disabled={!isValid || !dirty}
+                >
+                  Login
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Box>
+      </Box>
     </>
   );
 };

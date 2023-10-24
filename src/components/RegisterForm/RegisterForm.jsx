@@ -3,21 +3,22 @@ import { object, string } from 'yup';
 import { registerUser } from '../../redux/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { selectLogIn } from '../../redux/selectors';
 import { toast } from 'react-toastify';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
-//formik initialValues
+//*formik initialValues
 const initialValues = {
   name: '',
   email: '',
   password: '',
 };
-//formik schema
+//*formik schema
 const schema = object({
-  name: string().required(),
-  email: string().nullable().email().required(),
-  password: string().min(8).max(16).required(),
+  name: string().required('Required'),
+  email: string().nullable().email('Invalid email').required('Required'),
+  password: string().min(8, 'min 8').max(16).required('Required'),
 });
 
 export const RegisterForm = () => {
@@ -48,39 +49,89 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <h2>Register</h2>
 
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={schema}
-      >
-        <Form>
-          <label>
-            Name:
-            <Field type={'text'} name={'name'} placeholder={'Name'} />
-            <ErrorMessage
-              name='name'
-              component={'div'}
-            />
-          </label>
-          <br />
-          <label>
-            Email:
-            <Field type={'text'} name={'email'} placeholder={'email'} />
-            <ErrorMessage name='email' component={'div'} />
-          </label>
-          <br />
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <Box sx={{ width: 350, p: 4, borderRadius: 4, boxShadow: '0px 10px 20px 2px rgba(0, 0, 0, 0.2)' }}>
 
-          <label>
-            Password:
-            <Field type={'password'} name={'password'} placeholder={'******'} />
-            <ErrorMessage name='password' />
-          </label>
-          <br />
-          <button type={'submit'}>Submit</button>
-        </Form>
-      </Formik>
+          <Typography variant='h5' sx={{ fontWeight: 'bolder', mb: 1 }}>Register</Typography>
+
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={schema}
+          >
+            {({ isValid, dirty }) => (
+              <Form>
+
+                <Field
+                  type={'text'}
+                  name={'name'}
+                  as={TextField}
+                  variant='outlined'
+                  label='Name:'
+                  fullWidth
+                  size='small'
+                />
+                <ErrorMessage
+                  name='name'
+                  render={msg => (
+                    <Typography
+                      variant='caption' color={'red'}
+                      sx={{ ml: 1 }}>{msg}</Typography>
+                  )}
+                />
+                <Box sx={{ mb: 2 }} />
+                <Field
+                  type={'text'}
+                  name={'email'}
+                  as={TextField}
+                  variant='outlined'
+                  label='Email:'
+                  fullWidth
+                  size='small'
+                />
+                <ErrorMessage
+                  name='email'
+                  render={msg => (
+                    <Typography
+                      variant='caption' color={'red'}
+                      sx={{ ml: 1 }}>{msg}</Typography>
+                  )}
+                />
+                <Box sx={{ mb: 2 }} />
+                <Field
+                  type={'password'}
+                  name={'password'}
+                  as={TextField}
+                  variant='outlined'
+                  label='Password:'
+                  fullWidth
+                  size='small'
+                />
+                <ErrorMessage
+                  name='password'
+                  render={msg => (
+                    <Typography
+                      variant='caption' color={'red'}
+                      sx={{ ml: 1 }}>{msg}</Typography>
+                  )}
+                />
+
+                <Box sx={{ mb: 2 }} />
+                <Button
+                  fullWidth
+                  type={'submit'}
+                  variant='contained'
+                  size='large'
+                  disabled={!isValid || !dirty}
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Box>
+      </Box>
     </>
   );
 };
