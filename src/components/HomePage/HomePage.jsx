@@ -20,9 +20,9 @@ export const HomePage = () => {
           </Box>
           <Box>
             {isLoggedIn ?
-              <img src={log} alt='login image' width={350} height={350} />
+              <img src={log} alt='authorized' width={350} height={350} />
               :
-              <img src={login} alt='login image' width={350} height={350} />
+              <img src={login} alt='login' width={350} height={350} />
 
             }
           </Box>

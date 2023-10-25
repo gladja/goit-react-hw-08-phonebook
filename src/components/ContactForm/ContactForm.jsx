@@ -1,61 +1,113 @@
-// import { Btn, Form, Input, Label } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from '../../redux/contacts/operations';
 import { selectContacts } from '../../redux/contacts/selectors';
 import { toast } from 'react-toastify';
+import {  string, object } from 'yup';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import React from 'react';
+
+//* formik initialValues
+const initialValues = {
+  name: '',
+  number: '',
+};
+//* formik schema
+const schema = object({
+  name: string('Invalid name').required('Required'),
+  number: string('Invalid number').required('Required'),
+});
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { name, number } = e.target.elements;
+  const handleSubmit = (v, a) => {
+    console.log(v.name);
     const newContacts = {
-      name: name.value,
-      number: number.value,
+      name: v.name,
+      number: v.number,
     };
-    if (name.value.trim() === '' || number.value.trim() === '') {
+    if (v.name.trim() === '' || v.number.trim() === '') {
       return toast.warning('Please write First name Last name and number');
     }
-    const isDoubleName = contacts.find(el => el.name === name.value);
+    const isDoubleName = contacts.find(el => el.name === v.name);
     if (isDoubleName) {
-      return toast.warning(`${name.value} is already in contacts`);
+      return toast.warning(`${v.name} is already in contacts`);
     }
-    dispatch(addContacts(newContacts))
-    e.currentTarget.reset();
+    dispatch(addContacts(newContacts));
+
+    a.resetForm();
+    toast.info('Contacts add!');
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name
-          <input
-            type='text'
-            name='name'
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces.
-            For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            // required
-            placeholder='First name Last name'
-          />
-        </label>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <Box sx={{ width: 350, p: 4, borderRadius: 4, boxShadow: '0px 10px 20px 2px rgba(0, 0, 0, 0.2)' }}>
 
-        <label>
-          Number
-          <input
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            // required
-            placeholder='123-45-67'
-          />
-        </label>
+          <Typography variant='h5' align={'center'} sx={{ fontWeight: 'bolder', mb: 1, textTransform: 'uppercase' }}>Add contacts</Typography>
 
-        <button type='submit'>Add contact</button>
-      </form>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={schema}
+          >
+            {({ isValid, dirty }) => (
+            <Form>
+              <Field
+                type='text'
+                name='name'
+                as={TextField}
+                variant='outlined'
+                label='Name:'
+                fullWidth
+                size='small'
+              />
+              <ErrorMessage
+                name='name'
+                render={msg => (
+                  <Typography
+                    variant='caption' color={'red'}
+                    sx={{ ml: 1 }}>{msg}</Typography>
+                )}
+              />
+              <Box sx={{ mb: 2 }} />
+
+
+              <Field
+                type='tel'
+                name='number'
+                as={TextField}
+                variant='outlined'
+                label='Number:'
+                fullWidth
+                size='small'
+              />
+              <ErrorMessage
+                name='number'
+                render={msg => (
+                  <Typography
+                    variant='caption' color={'red'}
+                    sx={{ ml: 1 }}>{msg}</Typography>
+                )}
+              />
+              <Box sx={{ mb: 2 }} />
+
+              <Button
+                fullWidth
+                type={'submit'}
+                variant='contained'
+                size='large'
+                disabled={!isValid || !dirty}
+              >
+                Add contact
+              </Button>
+            </Form>
+            )}
+          </Formik>
+        </Box>
+      </Box>
     </>
   );
 };

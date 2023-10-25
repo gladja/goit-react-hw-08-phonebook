@@ -8,9 +8,9 @@ const Login = () => {
 
   return (
     <>
-      { isLoading ? <Loader/> :  <LoginForm />}
+      {isLoading ? <Loader /> : <LoginForm />}
     </>
   );
 };
 
-export default Login
+export default Login;

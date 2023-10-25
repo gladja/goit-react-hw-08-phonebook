@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {addContacts, getAllContacts, deleteContacts} from './operations';
+import { addContacts, getAllContacts, deleteContacts } from './operations';
 
 export const initialState = {
-  // contacts: {
-    items: [],
-    isLoading: false,
-    error: null,
-  // },
+  items: [],
+  isLoading: false,
+  error: false,
   filter: '',
 };
 
@@ -15,13 +13,12 @@ const handlePending = (state) => {
 };
 
 const handleFulfilled = (state) => {
-  state.isLoading = false
-}
+  state.isLoading = false;
+};
 
 const handleRejected = (state, { error }) => { // (state, {payload, error })
-  // console.log(state);
   state.isLoading = false;
-  // state.error = error.message;
+  state.error = error.message;
 };
 
 export const contactsSlice = createSlice({
@@ -37,7 +34,7 @@ export const contactsSlice = createSlice({
       })
       .addCase(deleteContacts.fulfilled, (state, { payload }) => {
         console.log(state);
-        const deleteItem = state.items.filter(el => el.id !== payload.id)
+        const deleteItem = state.items.filter(el => el.id !== payload.id);
         state.items = deleteItem;
       })
       .addMatcher((action) => action.type.endsWith('/pending'), handlePending)

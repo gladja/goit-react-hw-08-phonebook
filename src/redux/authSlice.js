@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, registerUser, refresh, logoutUser } from './operations';
-// import { addMethod } from 'yup';
 
 const initialState = {
   token: '',

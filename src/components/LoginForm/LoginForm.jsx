@@ -36,7 +36,7 @@ export const LoginForm = () => {
     };
     dispatch(loginUser(dataUser)).unwrap()
       .then(() => {
-        toast.success('Login success!');
+        toast.info('Login success!');
       }).catch((e) => {
       toast.error('Login error, Email or Password wrong!');
     });

@@ -26,7 +26,7 @@ const box = {
 export const UserMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userName = useSelector(selectUserName);
+  // const userName = useSelector(selectUserName);
   const userMail = useSelector(selectUserMail);
 
   const handleLogOut = () => {

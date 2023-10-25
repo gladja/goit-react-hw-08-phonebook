@@ -5,9 +5,8 @@ import { ContactFilter } from '../components/ContactFilter/ContactFilter';
 const Contacts = () => {
   return (
     <>
-      <h2>Add contacts </h2>
       <ContactForm />
-      <h2>Contacts</h2>
+      {/*<h2>Contacts</h2>*/}
       <ContactFilter />
       <ContactList />
     </>

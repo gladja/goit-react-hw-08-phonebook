@@ -5,6 +5,10 @@ import { deleteContacts, getAllContacts } from '../../redux/contacts/operations'
 import { useEffect } from 'react';
 import { selectContacts, selectError, selectFilter, selectIsLoading } from '../../redux/contacts/selectors';
 import { toast } from 'react-toastify';
+import { Box, Button, Grid, List, ListItem, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Loader } from '../Loader/Loader';
+// import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -27,22 +31,34 @@ export const ContactList = () => {
   });
 
   return (
-    <ul>
-      {isLoading && <h2>Loading...</h2>}
-      {error && <h3>{error}</h3>}
-      {contactsFilterResult && !isLoading && contactsFilterResult.map(({ id, name, number }) => (
-        <div key={id}>
-          <div>{name}</div>
-          <div>
-            <div> {number}</div>
-            <button
-              onClick={() => handleDelete(id)}
-            >
-              X
-            </button>
-          </div>
-        </div>
-      ))}
-    </ul>
+    <>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ width: 400, px: 4 }}>
+          <List>
+            {isLoading && <Loader/>}
+            {error && <Typography variant='h6' align={'center'}>{error}</Typography>}
+            {contactsFilterResult && !isLoading && contactsFilterResult.map(({ id, name, number }) => (
+
+              <ListItem key={id} disablePadding >
+                <Grid container spacing={1} sx={{display: 'flex', alignItems: 'center'}}>
+                  <Grid item xs={6} >
+                    <Typography >{name}</Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography>{number}</Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Button onClick={() => handleDelete(id)}>
+                      <DeleteIcon />
+                      {/*<DeleteOutlinedIcon />*/}
+                    </Button>
+                  </Grid>
+                </Grid>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Box>
+    </>
   );
 };
