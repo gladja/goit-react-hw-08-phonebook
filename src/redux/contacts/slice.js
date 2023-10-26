@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addContacts, getAllContacts, deleteContacts } from './operations';
+import { addContacts, getAllContacts, deleteContacts, updateContacts } from './operations';
 
 export const initialState = {
   items: [],
@@ -33,9 +33,17 @@ export const contactsSlice = createSlice({
         state.items.push(payload);
       })
       .addCase(deleteContacts.fulfilled, (state, { payload }) => {
-        console.log(state);
         const deleteItem = state.items.filter(el => el.id !== payload.id);
         state.items = deleteItem;
+      })
+      .addCase(updateContacts.fulfilled, (state, { payload }) => {
+          console.log(state.items);
+        console.log(payload);
+        const { id, name, number } = payload
+        const updateItem = state.items.map(itm => {
+          return itm.id === id ? {...itm, name, number} : itm;
+        });
+        state.items = updateItem;
       })
       .addMatcher((action) => action.type.endsWith('/pending'), handlePending)
       .addMatcher((action) => action.type.endsWith('/rejected'), handleRejected)

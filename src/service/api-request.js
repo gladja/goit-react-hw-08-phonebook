@@ -17,7 +17,7 @@ const updateToken = () => {
   const token = JSON.parse(localStorage.getItem('persist:auth'));
   setToken(JSON.parse(token?.token));
   // console.log(JSON.parse(token?.token));
-}
+};
 
 
 //* api request authorization
@@ -65,3 +65,9 @@ export const deleteContact = async (id) => {
   return data;
 };
 
+export const updateContact = async (oneUser) => {
+  const { id, name, number } = oneUser;
+  updateToken();
+  const { data } = await instance.patch(`contacts/${id}`, { name, number });
+  return data;
+};
