@@ -28,7 +28,7 @@ export const ContactList = () => {
         <Box sx={{ width: 420, px: 4 }}>
           <List>
             {isLoading && <Loader />}
-            {error && <Typography variant='h6' align={'center'}>{error}</Typography>}
+            { error && <Typography variant='h6' align={'center'}>{error}</Typography>}
             {contactsFilterResult && !isLoading && contactsFilterResult.map(({ id, name, number }) => (
                 <ContactOne key={id} id={id} name={name} number={number}/>
             ))}

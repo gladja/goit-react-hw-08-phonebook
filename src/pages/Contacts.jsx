@@ -6,7 +6,6 @@ const Contacts = () => {
   return (
     <>
       <ContactForm />
-      {/*<h2>Contacts</h2>*/}
       <ContactFilter />
       <ContactList />
     </>

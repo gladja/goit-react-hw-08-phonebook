@@ -46,9 +46,12 @@ export const refreshUser = async () => {
 };
 
 
+
 //* api request contacts
 export const allContacts = async () => {
-  updateToken();
+
+    updateToken();
+
   const { data } = await instance('contacts');
   return data;
 };

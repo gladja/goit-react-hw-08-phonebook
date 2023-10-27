@@ -33,7 +33,7 @@ const slice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {
         state.token = payload.token;
-        state.profile = payload;
+        state.profile = payload.user;
         state.isLoggedIn = true;
       })
       .addCase(logoutUser.fulfilled, (state, { payload }) => {
@@ -42,7 +42,6 @@ const slice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(refresh.fulfilled, (state, { payload }) => {
-        // console.log(payload);
         state.profile = payload;
         state.isLoggedIn = true;
       })
