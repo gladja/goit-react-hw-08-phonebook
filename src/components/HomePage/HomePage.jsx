@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectLogIn } from '../../redux/selectors';
+import { selectLogIn } from '../../redux/auth/selectors';
 import log from '../../img/log.webp';
 import login from '../../img/login.webp';
 

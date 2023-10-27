@@ -1,5 +1,5 @@
 import { ThreeDots } from  'react-loader-spinner'
-import { selectIsLoading } from '../../redux/selectors';
+import { selectIsLoading } from '../../redux/auth/selectors';
 import { useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 

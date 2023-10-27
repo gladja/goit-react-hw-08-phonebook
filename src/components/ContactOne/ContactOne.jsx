@@ -1,5 +1,7 @@
-import { Button, Grid, ListItem, Typography } from '@mui/material';
+import { Grid, IconButton, ListItem, TextField, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
 import { deleteContacts, updateContacts } from '../../redux/contacts/operations';
 import { toast } from 'react-toastify';
@@ -9,16 +11,16 @@ export const ContactOne = ({ id, name, number }) => {
   const dispatch = useDispatch();
   const [inputName, setInputName] = useState(name);
   const [inputNumber, setInputNumber] = useState(number);
+  const [onInput, setOnInput] = useState(true);
 
   const handleDelete = (id) => {
     dispatch(deleteContacts(id));
     toast.info('Contact removed!');
   };
 
-
   const handleUpdate = (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+    setOnInput(true);
     // console.log(e.target.value);
 
     // console.log(id, inputName, inputNumber);
@@ -26,41 +28,46 @@ export const ContactOne = ({ id, name, number }) => {
   };
 
   return (
-    <>
-      <ListItem key={id} disablePadding>
+
+      <ListItem disablePadding>
         <Grid container spacing={1} sx={{ display: 'flex', alignItems: 'center' }}>
           <Grid item xs={6}>
-            <Typography>{name}</Typography>
+            {onInput && <Typography>{name}</Typography>}
+            {!onInput &&
+              <TextField
+              type='text'
+              name={'name'}
+              size='small'
+              value={inputName}
+              onChange={({ target }) => setInputName(target.value)}
+            />}
           </Grid>
           <Grid item xs={4}>
-            <Typography>{number}</Typography>
+            {onInput && <Typography>{number}</Typography>}
+            {!onInput &&
+              <TextField
+              type='text'
+              name={'number'}
+              size='small'
+              fullWidth
+              value={inputNumber}
+              onChange={({ target }) => setInputNumber(target.value)}
+            />}
           </Grid>
-          <Grid item xs={2}>
-            <Button onClick={() => handleDelete(id)}>
+          <Grid item xs={1}>
+            {onInput && <IconButton aria-label="edit contact" size="small" onClick={() => setOnInput(false)}>
+              <EditIcon />
+            </IconButton>}
+            {!onInput && <IconButton aria-label="save contact" size="small" onClick={handleUpdate}>
+            <SaveIcon/>
+            </IconButton>}
+          </Grid>
+          <Grid item xs={1}>
+            <IconButton aria-label="del contact" size="small" onClick={() => handleDelete(id)}>
               <DeleteIcon />
-              {/*<DeleteOutlinedIcon />*/}
-            </Button>
+            </IconButton>
           </Grid>
         </Grid>
       </ListItem>
-      <form>
-        <input
-          type='text'
-          name={'name'}
-          value={inputName}
-          onChange={({ target }) => setInputName(target.value)}
-        />
-
-        <input
-          type='text'
-          name={'number'}
-          value={inputNumber}
-          onChange={({ target }) => setInputNumber(target.value)}
-        />
-        <button type='submit' onClick={handleUpdate}>
-          X
-        </button>
-      </form>
-    </>
   );
 };

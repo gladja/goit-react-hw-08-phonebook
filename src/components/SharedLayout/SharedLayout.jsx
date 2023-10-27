@@ -1,6 +1,6 @@
 import {  NavLink, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectLogIn } from '../../redux/selectors';
+import { selectLogIn } from '../../redux/auth/selectors';
 import { UserMenu } from '../UserMenu/UserMenu';
 import { UserAuth } from '../UserAuth/UserAuth';
 import { Suspense } from 'react';

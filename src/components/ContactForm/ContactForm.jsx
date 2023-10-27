@@ -23,7 +23,6 @@ export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
 
   const handleSubmit = (v, a) => {
-    console.log(v.name);
     const newContacts = {
       name: v.name,
       number: v.number,
@@ -99,6 +98,7 @@ export const ContactForm = () => {
                 type={'submit'}
                 variant='contained'
                 size='large'
+                aria-label="add contact"
                 disabled={!isValid || !dirty}
               >
                 Add contact

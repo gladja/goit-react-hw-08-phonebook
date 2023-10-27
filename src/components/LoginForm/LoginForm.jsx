@@ -2,9 +2,9 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object, string } from 'yup';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../redux/operations';
+import { loginUser } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
-import { selectLogIn } from '../../redux/selectors';
+import { selectLogIn } from '../../redux/auth/selectors';
 import { toast } from 'react-toastify';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
@@ -99,6 +99,7 @@ export const LoginForm = () => {
                   type={'submit'}
                   variant='contained'
                   size='large'
+                  aria-label="login user"
                   disabled={!isValid || !dirty}
                 >
                   Login

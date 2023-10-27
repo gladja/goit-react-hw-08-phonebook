@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../redux/operations';
-import { selectUserMail, selectUserName } from '../../redux/selectors';
+import { logoutUser } from '../../redux/auth/operations';
+import { selectUserMail, selectUserName } from '../../redux/auth/selectors';
 import { toast } from 'react-toastify';
 import { Box, Button, Typography } from '@mui/material';
 

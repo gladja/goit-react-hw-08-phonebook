@@ -37,8 +37,6 @@ export const contactsSlice = createSlice({
         state.items = deleteItem;
       })
       .addCase(updateContacts.fulfilled, (state, { payload }) => {
-          console.log(state.items);
-        console.log(payload);
         const { id, name, number } = payload
         const updateItem = state.items.map(itm => {
           return itm.id === id ? {...itm, name, number} : itm;

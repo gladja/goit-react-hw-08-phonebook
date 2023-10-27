@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { refresh } from '../redux/operations';
+import { refresh } from '../redux/auth/operations';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 
 // import { Home } from '../pages/Home';

@@ -1,10 +1,10 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
-import { registerUser } from '../../redux/operations';
+import { registerUser } from '../../redux/auth/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { selectLogIn } from '../../redux/selectors';
+import { selectLogIn } from '../../redux/auth/selectors';
 import { toast } from 'react-toastify';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
@@ -123,6 +123,7 @@ export const RegisterForm = () => {
                   type={'submit'}
                   variant='contained'
                   size='large'
+                  aria-label="register user"
                   disabled={!isValid || !dirty}
                 >
                   Submit
