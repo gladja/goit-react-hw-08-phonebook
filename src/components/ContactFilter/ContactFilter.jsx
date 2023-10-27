@@ -11,7 +11,6 @@ export const ContactFilter = () => {
   const filter = useSelector(selectFilter);
 
   const contactsFilter = (e) => {
-    console.log(e.target.value);
     dispatch(filterContacts(e.target.value));
   };
 
@@ -21,7 +20,6 @@ export const ContactFilter = () => {
         <Box sx={{ width: 350, p: 4, }}>
 
           <Typography variant='h5' align={'center'} sx={{ fontWeight: 'bolder', mb: 1, textTransform: 'uppercase' }}>Contacts</Typography>
-
 
           <Typography variant='caption' sx={{m: 1, textAlign: 'center', width: 350}}>Find contacts by name</Typography>
           <Formik initialValues={{name: ''}} >

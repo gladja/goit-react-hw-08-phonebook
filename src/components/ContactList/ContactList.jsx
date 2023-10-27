@@ -14,7 +14,6 @@ export const ContactList = () => {
   const error = useSelector(selectError);
 
 
-
   useEffect(() => {
     dispatch(getAllContacts());
   }, [dispatch]);

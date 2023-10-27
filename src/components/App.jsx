@@ -7,12 +7,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { refresh } from '../redux/auth/operations';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 
-// import { Home } from '../pages/Home';
-// import { Contacts } from '../pages/Contacts';
-// import { Register } from '../pages/Register';
-// import { Login } from '../pages/Login';
-
-
 //* lazy
 const Home = lazy(() => import('../pages/Home'));
 const Contacts = lazy(() => import('../pages/Contacts'));
@@ -25,6 +19,7 @@ export const App = () => {
   useEffect(() => {
     dispatch(refresh());
   }, [dispatch]);
+
 
   return (
     <>

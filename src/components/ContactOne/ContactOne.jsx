@@ -21,9 +21,6 @@ export const ContactOne = ({ id, name, number }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
     setOnInput(true);
-    // console.log(e.target.value);
-
-    // console.log(id, inputName, inputNumber);
     dispatch(updateContacts({ id, name: inputName, number: inputNumber }));
   };
 
@@ -55,15 +52,15 @@ export const ContactOne = ({ id, name, number }) => {
             />}
           </Grid>
           <Grid item xs={1}>
-            {onInput && <IconButton aria-label="edit contact" size="small" onClick={() => setOnInput(false)}>
+            {onInput && <IconButton sx={{ "&:hover": { color: "#1565c0" } }} aria-label="edit contact" size="small" onClick={() => setOnInput(false)}>
               <EditIcon />
             </IconButton>}
-            {!onInput && <IconButton aria-label="save contact" size="small" onClick={handleUpdate}>
+            {!onInput && <IconButton sx={{ "&:hover": { color: "#1565c0" } }} aria-label="save contact" size="small" onClick={handleUpdate}>
             <SaveIcon/>
             </IconButton>}
           </Grid>
           <Grid item xs={1}>
-            <IconButton aria-label="del contact" size="small" onClick={() => handleDelete(id)}>
+            <IconButton sx={{ "&:hover": { color: "#7b1fa2" } }} aria-label="del contact" size="small" onClick={() => handleDelete(id)}>
               <DeleteIcon />
             </IconButton>
           </Grid>
