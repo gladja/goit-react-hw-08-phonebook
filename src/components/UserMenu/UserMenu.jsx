@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser, refresh } from '../../redux/auth/operations';
+import { logoutUser } from '../../redux/auth/operations';
 import { selectUserMail } from '../../redux/auth/selectors';
 import { toast } from 'react-toastify';
 import { Box, Button, Typography } from '@mui/material';
