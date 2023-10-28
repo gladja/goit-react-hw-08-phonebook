@@ -1,12 +1,12 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object, string } from 'yup';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../redux/auth/operations';
-import { useNavigate } from 'react-router-dom';
-import { selectLogIn } from '../../redux/auth/selectors';
 import { toast } from 'react-toastify';
 import { Box, Button, TextField, Typography } from '@mui/material';
+import { selectLogIn } from '../../redux/auth/selectors';
+import { loginUser } from '../../redux/auth/operations';
 
 //* formik initialValues
 const initialValues = {
@@ -15,8 +15,8 @@ const initialValues = {
 };
 //* formik schema
 const schema = object({
-  email: string().nullable().email('Invalid email').required('Required'),
-  password: string().min(8, 'min 8').max(16).required('Required'),
+  email: string().nullable().email('Invalid email').required('Required field'),
+  password: string().min(8, 'Password must been more than 7 symbol').max(16).required('Required field'),
 });
 
 
@@ -46,10 +46,10 @@ export const LoginForm = () => {
 
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, px: 1}}>
         <Box sx={{ width: 350, p: 4,  borderRadius: 4, boxShadow: '0px 10px 20px 2px rgba(0, 0, 0, 0.2)' }}>
 
-          <Typography variant="h5" sx={{fontWeight: 'bolder', mb: 1}}>Login</Typography>
+          <Typography variant="h5" sx={{fontWeight: 'bolder', mb: 1, textTransform: 'uppercase'}}>Login</Typography>
 
           <Formik
             initialValues={initialValues}

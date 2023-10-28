@@ -1,11 +1,11 @@
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { Grid, IconButton, ListItem, TextField, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
-import { useState } from 'react';
 import { deleteContacts, updateContacts } from '../../redux/contacts/operations';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 
 export const ContactOne = ({ id, name, number }) => {
   const dispatch = useDispatch();

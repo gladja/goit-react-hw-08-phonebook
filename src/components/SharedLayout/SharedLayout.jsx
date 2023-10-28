@@ -5,13 +5,7 @@ import { UserMenu } from '../UserMenu/UserMenu';
 import { UserAuth } from '../UserAuth/UserAuth';
 import { Suspense } from 'react';
 
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Container,
-} from '@mui/material';
+import { AppBar, Box, Toolbar, Container, Button } from '@mui/material';
 
 const boxWrap = {
   flexGrow: 1,
@@ -21,30 +15,23 @@ const boxWrap = {
 };
 
 const boxNav = {
+  p: 1,
   display: 'flex',
   gap: 2,
   textDecoration: 'none',
   '& a': { textDecoration: 'none' },
 };
 
-const text = {
-  px: 2,
-  py: 0.5,
+export const Btn = {
   background: 'white',
-  borderRadius: 2,
   color: '#1976d2',
   fontWeight: 'bold',
-  transition: 'all 300ms cubic-bezier(.23, 1, 0.32, 1)',
-
-  '&:hover': {
-    color: '#4f4e4e',
-    opacity: 0.9,
-    boxShadow: 'rgba(0, 0, 0, 0.3) 0 8px 15px',
-  },
+  '&:hover': { color: 'white' },
 };
 
 export const SharedLayout = () => {
   const isLoggedIn = useSelector(selectLogIn);
+  isLoggedIn ? boxWrap.flexDirection = { xs: 'column', md: 'row' } : boxWrap.flexDirection = '';
 
   return (
     <>
@@ -54,14 +41,14 @@ export const SharedLayout = () => {
             <Box sx={boxWrap}>
               <Box sx={boxNav}>
                 <NavLink to={'/'}>
-                  <Typography component='span' sx={text}>
+                  <Button color='info' size='small' variant='contained' sx={Btn}>
                     Home
-                  </Typography>
+                  </Button>
                 </NavLink>
                 {isLoggedIn && <NavLink to={'/contacts'}>
-                  <Typography component='span' sx={text}>
+                  <Button color='info' size='small' variant='contained' sx={Btn}>
                     Contacts
-                  </Typography>
+                  </Button>
                 </NavLink>}
               </Box>
               <Box sx={boxNav}>

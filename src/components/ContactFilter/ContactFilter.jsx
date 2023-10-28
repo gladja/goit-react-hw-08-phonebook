@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { Box, TextField, Typography } from '@mui/material';
+import { Field, Form, Formik } from 'formik';
 import { filterContacts } from '../../redux/contacts/slice';
 import { selectFilter } from '../../redux/contacts/selectors';
-import { Box, TextField, Typography } from '@mui/material';
-import React from 'react';
-import { Field, Form, Formik } from 'formik';
 
 
 export const ContactFilter = () => {

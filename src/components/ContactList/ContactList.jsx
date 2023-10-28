@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllContacts } from '../../redux/contacts/operations';
 import { useEffect } from 'react';
-import { selectContacts, selectError, selectFilter, selectIsLoading } from '../../redux/contacts/selectors';
 import { Box, List, Typography } from '@mui/material';
 import { Loader } from '../Loader/Loader';
 import { ContactOne } from '../ContactOne/ContactOne';
+import { getAllContacts } from '../../redux/contacts/operations';
+import { selectContacts, selectError, selectFilter, selectIsLoading } from '../../redux/contacts/selectors';
 
 export const ContactList = () => {
   const dispatch = useDispatch();

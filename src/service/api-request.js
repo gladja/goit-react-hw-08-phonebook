@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const firstLogin = { status: false };
+
 //* token utility
 const instance = axios.create({
   baseURL: 'https://connections-api.herokuapp.com/',
@@ -39,6 +41,7 @@ export const logOut = async () => {
 };
 
 export const refreshUser = async () => {
+  firstLogin.status = true;
   updateToken();
   const { data } = await instance('users/current');
   setToken(data.token);
@@ -46,13 +49,11 @@ export const refreshUser = async () => {
 };
 
 
-
 //* api request contacts
 export const allContacts = async () => {
-
-    updateToken();
-
+  if (firstLogin.status) updateToken();
   const { data } = await instance('contacts');
+  firstLogin.status = false;
   return data;
 };
 

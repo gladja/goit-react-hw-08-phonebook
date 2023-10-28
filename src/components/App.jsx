@@ -1,9 +1,9 @@
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { lazy } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { SharedLayout } from './SharedLayout/SharedLayout';
 import { refresh } from '../redux/auth/operations';
@@ -13,6 +13,7 @@ import { PublicRoute } from './PublicRoute';
 //* lazy
 const Home = lazy(() => import('../pages/Home'));
 const Contacts = lazy(() => import('../pages/Contacts'));
+const User = lazy(() => import('../pages/User'));
 const Register = lazy(() => import('../pages/Register'));
 const Login = lazy(() => import('../pages/Login'));
 
@@ -33,6 +34,12 @@ export const App = () => {
             <PrivateRoute>
               <Contacts />
             </PrivateRoute>} />
+
+          <Route path='/user' element={
+            <PrivateRoute>
+              <User />
+            </PrivateRoute>} />
+
           <Route path='/register' element={
             <PublicRoute>
               <Register />

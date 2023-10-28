@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContacts } from '../../redux/contacts/operations';
-import { selectContacts } from '../../redux/contacts/selectors';
+import React from 'react';
 import { toast } from 'react-toastify';
-import {  string, object } from 'yup';
+import { string, object } from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Box, Button, TextField, Typography } from '@mui/material';
-import React from 'react';
+import { selectContacts } from '../../redux/contacts/selectors';
+import { addContacts } from '../../redux/contacts/operations';
 
 //* formik initialValues
 const initialValues = {
@@ -14,8 +14,8 @@ const initialValues = {
 };
 //* formik schema
 const schema = object({
-  name: string('Invalid name').required('Required'),
-  number: string('Invalid number').required('Required'),
+  name: string('Invalid name').required('Required field'),
+  number: string('Invalid number').required('Required field'),
 });
 
 export const ContactForm = () => {
@@ -42,7 +42,7 @@ export const ContactForm = () => {
 
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, px: 1 }}>
         <Box sx={{ width: 350, p: 4, borderRadius: 4, boxShadow: '0px 10px 20px 2px rgba(0, 0, 0, 0.2)' }}>
 
           <Typography variant='h5' align={'center'} sx={{ fontWeight: 'bolder', mb: 1, textTransform: 'uppercase' }}>Add contacts</Typography>

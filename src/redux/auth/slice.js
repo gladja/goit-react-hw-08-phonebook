@@ -29,7 +29,7 @@ const slice = createSlice({
     builder
       .addCase(registerUser.fulfilled, (state, { payload }) => {
         state.token = payload.token;
-        state.profile = payload;
+        state.profile = payload.user;
         state.isLoggedIn = true;
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {

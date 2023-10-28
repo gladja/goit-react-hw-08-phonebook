@@ -14,4 +14,6 @@ code {
     monospace;
 }
 
-
+.active button{
+  color: #000;
+}
