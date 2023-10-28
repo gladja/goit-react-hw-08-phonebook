@@ -18,11 +18,12 @@ const handleFulfilled = (state) => {
 
 const handleRejected = (state, { error }) => {
   state.isLoading = false;
+  state.error = error.message;
 };
 
 
 const slice = createSlice({
-  name: 'register',
+  name: 'auth',
   initialState,
   extraReducers: (builder) => {
     builder

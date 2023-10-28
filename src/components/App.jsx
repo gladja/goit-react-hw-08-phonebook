@@ -4,8 +4,11 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { refresh } from '../redux/auth/operations';
+
 import { SharedLayout } from './SharedLayout/SharedLayout';
+import { refresh } from '../redux/auth/operations';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 
 //* lazy
 const Home = lazy(() => import('../pages/Home'));
@@ -26,14 +29,23 @@ export const App = () => {
       <Routes>
         <Route path='/' element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path='/contacts' element={<Contacts />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='*' element={<Navigate to="/" />} />
+          <Route path='/contacts' element={
+            <PrivateRoute>
+              <Contacts />
+            </PrivateRoute>} />
+          <Route path='/register' element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>} />
+          <Route path='/login' element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>} />
+          <Route path='*' element={<Navigate to='/' />} />
         </Route>
       </Routes>
-
       <ToastContainer autoClose={3000} theme='colored' position='top-right' />
     </>
   );
 };
+

@@ -1,4 +1,4 @@
-import {  NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectLogIn } from '../../redux/auth/selectors';
 import { UserMenu } from '../UserMenu/UserMenu';
@@ -17,8 +17,8 @@ const boxWrap = {
   flexGrow: 1,
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between'
-}
+  justifyContent: 'space-between',
+};
 
 const boxNav = {
   display: 'flex',
@@ -43,35 +43,33 @@ const text = {
   },
 };
 
-
 export const SharedLayout = () => {
   const isLoggedIn = useSelector(selectLogIn);
 
   return (
     <>
       <AppBar position='static'>
-        <Container maxWidth="lg">
-        <Toolbar component='nav'>
-          <Box sx={boxWrap}>
-            <Box sx={boxNav}>
-              <NavLink to={'/'}>
-                <Typography component='span' sx={text}>
-                  Home
-                </Typography>
-              </NavLink>
-              {isLoggedIn && <NavLink to={'/contacts'}>
-                <Typography component='span' sx={text}>
-                  Contacts
-                </Typography>
-              </NavLink>}
+        <Container maxWidth='lg'>
+          <Toolbar component='nav'>
+            <Box sx={boxWrap}>
+              <Box sx={boxNav}>
+                <NavLink to={'/'}>
+                  <Typography component='span' sx={text}>
+                    Home
+                  </Typography>
+                </NavLink>
+                {isLoggedIn && <NavLink to={'/contacts'}>
+                  <Typography component='span' sx={text}>
+                    Contacts
+                  </Typography>
+                </NavLink>}
+              </Box>
+              <Box sx={boxNav}>
+                {isLoggedIn ? <UserMenu /> : <UserAuth />}
+              </Box>
             </Box>
-
-            <Box sx={boxNav}>
-              {isLoggedIn ? <UserMenu /> : <UserAuth />}
-            </Box>
-          </Box>
-        </Toolbar>
-            </Container>
+          </Toolbar>
+        </Container>
       </AppBar>
 
       <Suspense fallback={''}>

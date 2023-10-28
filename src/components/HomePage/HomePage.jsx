@@ -9,7 +9,7 @@ export const HomePage = () => {
 
   return (
     <>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 4, flexDirection: {xs: 'column', md: 'row'}}}>
           <Box sx={{ width: 250 }}>
             <h1>Say hello to your phone book!</h1>
             {isLoggedIn ?

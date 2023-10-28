@@ -8,9 +8,9 @@ const Register = () => {
 
   return (
     <>
-      { isLoading ? <Loader/> : <RegisterForm /> }
+      {isLoading ? <Loader /> : <RegisterForm />}
     </>
   );
 };
 
-export default Register
+export default Register;

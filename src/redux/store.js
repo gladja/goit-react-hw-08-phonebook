@@ -13,7 +13,7 @@ const persistedReducer = persistReducer(persistConfig, registerReducer);
 
 const reducer = {
   auth: persistedReducer,
-  register: registerReducer,
+  // register: registerReducer,
   contacts: contactsReducer,
 }
 
